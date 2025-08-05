@@ -1,0 +1,12 @@
+package voll.med.api.domain.consulta;
+
+import com.fasterxml.jackson.annotation.JsonAlias;
+
+import java.time.LocalDateTime;
+
+public record DadosDetalhadosConsulta(Long id, Long idMedico, Long idPaciente, LocalDateTime data) {
+
+    public DadosDetalhadosConsulta(Consulta consulta) {
+        this(consulta.getId(), consulta.getMedico().getId(), consulta.getPaciente().getId() , consulta.getData());
+    }
+}

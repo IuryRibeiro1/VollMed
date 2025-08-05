@@ -4,8 +4,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import voll.med.api.domain.consulta.Consulta;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Entity
 @Table(name = "medicos")
@@ -25,6 +27,9 @@ public class Medico {
     private Especialidade especialidade;
     @Embedded
     private Endereco endereco;
+
+    @OneToMany
+    private List<Consulta> consulta;
 
     private int ativo;
 

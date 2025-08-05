@@ -1,5 +1,6 @@
 package voll.med.api.controller;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +18,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/pacientes")
+@SecurityRequirement(name = "bearer-key")
 public class PacienteController {
 
     @Autowired
@@ -41,9 +43,11 @@ public class PacienteController {
 
     @DeleteMapping("/{id}")
     @Transactional
-    public void excluirPaciente(@PathVariable Long id){
-        repositorio.deleteById(id);
+    public ResponseEntity excluirPacientes(@PathVariable Long id){
+        var paciente = repositorio.getReferenceById(id);
+        paciente.excluir();
 
+        return ResponseEntity.noContent().build();
     }
 
 }

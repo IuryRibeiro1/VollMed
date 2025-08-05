@@ -4,7 +4,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import voll.med.api.domain.consulta.Consulta;
 import voll.med.api.domain.medico.Endereco;
+
+import java.util.List;
 
 
 @Entity
@@ -25,6 +28,11 @@ public class Paciente {
     @Embedded
     private Endereco endereco;
 
+    @OneToMany
+    private List<Consulta> consulta;
+
+    private int ativo;
+
 
     public Paciente(DadosCadastroPaciente paciente){
         this.nome = paciente.nome();
@@ -33,6 +41,10 @@ public class Paciente {
         this.telefone = paciente.telefone();
         this.endereco = new Endereco(paciente.endereco());
     }
+
+        public void excluir(){
+        this.ativo = 0;
+        }
 
 
 }
